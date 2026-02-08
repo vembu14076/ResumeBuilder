@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Builder</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+body{
+    font-family:'Roboto',sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:0;
+}
+.container{
+    max-width:900px;
+    margin:20px auto;
+    background:#fff;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.1);
+}
+.name-box{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+.name-box input{
+    width:60%;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    padding:10px;
+    border-radius:10px;
+    border:2px solid #333;
+}
+h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:22px;
+    margin-top:30px;
+    text-transform:uppercase;
+}
+.contact-info{
+    display:flex;
+    gap:10px;
+}
+.contact-item{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.contact-item input{
+    width:100%;
+    padding:6px 10px;
+    font-size:16px;
+}
+.section{
+    margin-top:20px;
+}
+textarea{
+    width:100%;
+    min-height:60px;
+    padding:8px 12px;
+    font-size:16px;
+}
+.ending-line{
+    border-bottom:2px solid #333;
+    margin:10px 0 20px 0;
+}
+#generateResume{
+    padding:12px 25px;
+    font-size:18px;
+    font-weight:bold;
+    background:#4D96FF;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="resume">
+
+    <div class="name-box">
+        <input type="text" placeholder="Your Name">
+    </div>
+
+    <div class="section">
+        <h2>Contact Info</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fa fa-phone"></i>
+                <input type="text" placeholder="Phone">
+            </div>
+            <div class="contact-item">
+                <i class="fa fa-envelope"></i>
+                <input type="text" placeholder="Email">
+            </div>
+            <div class="contact-item">
+                <i class="fa fa-map-marker-alt"></i>
+                <input type="text" placeholder="Location">
+            </div>
+        </div>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>About Me</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Education</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Skills</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Projects</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Experience</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Hobbies</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div class="section">
+        <h2>Languages</h2>
+        <textarea></textarea>
+        <div class="ending-line"></div>
+    </div>
+
+    <div style="text-align:center">
+        <button id="generateResume">Generate & Download Resume</button>
+    </div>
+
+</div>
+
+<!-- PDF LIBRARIES -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+document.getElementById("generateResume").onclick = function(){
+
+    const resume = document.getElementById("resume");
+    const { jsPDF } = window.jspdf;
+
+    html2canvas(resume,{scale:2}).then(canvas=>{
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p","mm","a4");
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = canvas.height * pdfWidth / canvas.width;
+
+        pdf.addImage(imgData,"PNG",0,0,pdfWidth,pdfHeight);
+
+         name = document.querySelector(".name-box input").value || "resume";
+        pdf.save(name+".pdf");
+    });
+};
+</script>
+const
+</body>
+</html>
